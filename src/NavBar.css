@@ -1,0 +1,25 @@
+.post-view-image{
+	height: 80px;
+}
+html, body, body > .column{
+	height: 100%;
+}
+.navBar{
+	min-width:5%; 
+	max-width:7%; 
+	background-color: #3E495F; 
+	position: fixed;
+	color: #FFFFFF;
+	text-align: center;
+	height: 100%;
+	padding-top: 25px;
+}
+.navBar > a{
+	color: #FFFFFF;
+}
+.navBar > a:hover{
+	color: #B2A7B8;
+}
+.nav-icon{
+	margin-bottom: 25px;
+}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import App from './App';
 import Comment from './Comment';
 import AuthorLink from './AuthorLink';
+import CommentNew from './CommentNew';
 
 class PostView extends Component {
 
@@ -14,7 +15,7 @@ class PostView extends Component {
 
 	componentDidMount() {
 
-	  axios.get(`https://jsonplaceholder.typicode.com/posts/${this.props.params.postId}`)
+	  axios.get(`http://localhost:3004/posts/${this.props.params.postId}`)
 	    .then(({ data: post }) => {
 	      this.setState({ post });
 	    });
@@ -34,12 +35,13 @@ class PostView extends Component {
 				    	<h1 className="display-4">
 	    					{post.title}
 				    	</h1>
-				    	By <AuthorLink authorId="1"/>
+				    	By <AuthorLink authorId={post.userId}/>
 			    	</div>
 	    		</div>
 	    		{post.body}
 	    		<hr/>
 	    		<Comment postId={this.props.params.postId} />
+	    		<CommentNew postId={this.props.params.postId} />
 	      	</div>
 	    )
 	  }
@@ -47,3 +49,4 @@ class PostView extends Component {
 }
 
 export default PostView;
+

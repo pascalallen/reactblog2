@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import App from './App';
+import GoogleMap from './GoogleMap';
+
 
 class AuthorView extends Component {
 
@@ -11,7 +13,7 @@ class AuthorView extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://jsonplaceholder.typicode.com/users/${this.props.params.authorId}`)
+    axios.get(`http://localhost:3004/users/${this.props.params.authorId}`)
       .then(({ data: user }) => {
         this.setState({ user });
       });
@@ -30,11 +32,22 @@ class AuthorView extends Component {
               <h1 className="display-4">
                 {user.name}
               </h1>
+              <table className="table table-sm">
+              	<tbody>
+	              	<tr>
+	              		<td align="left">{user.username}</td>
+	              		<td align="left">{user.email}</td>
+	              	</tr>
+	              	<tr>
+	              		<td align="left">{user.phone}</td>
+	              		<td align="left">{user.website}</td>
+	              	</tr>
+                </tbody>
+              </table>
             </div>
           </div>
-          {user.username}
-          {user.email}
           <hr/>
+          <GoogleMap/>
         </div>
     )
   }

@@ -1,28 +1,35 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import App from './App';
+import { withAlert } from 'react-alert';
 
 class PostNew extends Component {  
-	  state = {
-	    title: '',
-	    body: '',
-	  }
+  constructor () {
+    super();
+    this.state = {
+      title: '',
+      body: '',
+    };
+    this.handleChange = this.handleChange.bind(this);
+  }
 
-	  handleChange = event => {
-	    this.setState({ title: event.target.value, body: event.target.value });
+  handleChange (evt) {
+    // check it out: we get the evt.target.name (which will be either "email" or "password")
+    // and use it to target the key on our `state` object with the same name, using bracket syntax
+    this.setState({ [evt.target.name]: evt.target.value });
+  }
 
-	  }
+    handleSubmit = event => {
+      event.preventDefault();
 
-	  handleSubmit = event => {
-	    event.preventDefault();
+      const post = {
+        title: this.state.title,
+        body: this.state.body
+      };
 
-	    const post = {
-	      title: this.state.title,
-	      body: this.state.body
-	    };
-
-	    axios.post(`https://jsonplaceholder.typicode.com/posts`, { post })
+	    axios.post(`http://localhost:3004/posts`, post)
 	      .then(res => {
+	      	this.props.alert.show('Post created!');
 	        console.log(res);
 	        console.log(res.data);
 	      })
@@ -56,4 +63,4 @@ class PostNew extends Component {
 	  }
 }
 
-export default PostNew;
+export default withAlert(PostNew);

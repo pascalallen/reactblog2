@@ -10,7 +10,7 @@ class AuthorLink extends Component {
   }
 
   componentDidMount() {
-    axios.get(`https://jsonplaceholder.typicode.com/users/${this.props.authorId}`)
+    axios.get(`http://localhost:3004/users/${this.props.authorId}`)
       .then(({ data: user }) => {
         this.setState({ user });
       });
