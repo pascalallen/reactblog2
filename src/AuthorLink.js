@@ -6,7 +6,17 @@ class AuthorLink extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { user: { title: '' } };
+    this.state = { user: { title: '', authorId: '' } };
+  }
+
+  componentWillReceiveProps(nextProps) {
+  	if (this.props.authorId !== nextProps.authorId) {
+      	console.log(nextProps.authorId);
+	    axios.get(`http://localhost:3004/users/${nextProps.authorId}`)
+	      .then(({ data: user }) => {
+	      	this.setState({ user });
+	      });
+  	}
   }
 
   componentDidMount() {

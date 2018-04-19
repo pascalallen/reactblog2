@@ -9,20 +9,23 @@ class AuthorView extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { user: { title: '' } };
+    this.state = { user: { title: '' }, address: { street: '' }, geo: { lat: null, lng: null } };
   }
 
   componentDidMount() {
     axios.get(`http://localhost:3004/users/${this.props.params.authorId}`)
       .then(({ data: user }) => {
         this.setState({ user });
+        this.setState({ address: user.address});
+        this.setState({ geo: user.address.geo});
       });
   }
 
   render() {
 
     const { user } = this.state;
-
+    const { address } = this.state;
+    const { geo } = this.state;
     return (
         <div>
           <App/>
@@ -42,12 +45,16 @@ class AuthorView extends Component {
 	              		<td align="left">{user.phone}</td>
 	              		<td align="left">{user.website}</td>
 	              	</tr>
+	              	<tr>
+	              		<td align="left">{address.street} {address.suite}</td>
+	              		<td align="left">{address.city} {address.zipcode}</td>
+	              	</tr>
                 </tbody>
               </table>
             </div>
           </div>
           <hr/>
-          <GoogleMap/>
+          <GoogleMap lat={geo.lat} lng={geo.lng} city={address.city}/>
         </div>
     )
   }
